@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { ChevronRight, ChevronDown, ArrowLeft, User, Calendar, Stethoscope, Lightbulb, ExternalLink, FileText, Brain, Heart, Volume2, MessageCircle, Utensils, Share2, Copy, Link, Mail } from 'lucide-react';
 
