@@ -541,13 +541,6 @@ const SpeechPathologyDiagnosticTree = () => {
             New Assessment
           </button>
           <button 
-            onClick={() => setShareModalOpen(true)}
-            className="flex items-center gap-2 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors"
-          >
-            <Share2 className="w-4 h-4" />
-            Share
-          </button>
-          <button 
             onClick={() => window.print()}
             className="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors"
           >
@@ -560,21 +553,10 @@ const SpeechPathologyDiagnosticTree = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white">
-      <ShareModal />
-      
       <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h1 className="text-3xl font-bold text-gray-900">
-            Speech Pathology Evidence-Based Diagnostic Decision Tree
-          </h1>
-          <button
-            onClick={() => setShareModalOpen(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            <Share2 className="w-4 h-4" />
-            Share Tool
-          </button>
-        </div>
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">
+          Speech Pathology Evidence-Based Diagnostic Decision Tree
+        </h1>
         <p className="text-gray-600 text-lg">
           Navigate through patient presentations to receive targeted, evidence-based intervention recommendations for Melbourne practice.
         </p>
