@@ -1,165 +1,156 @@
+const { useState } = React;
 
-import React, { useState, useEffect } from 'react';
-import { ChevronRight, ChevronDown, ArrowLeft, User, Calendar, Stethoscope, Lightbulb, ExternalLink, FileText, Brain, Heart, Volume2, MessageCircle, Utensils, Share2, Copy, Link, Mail } from 'lucide-react';
+// Simple icon components
+const ChevronRight = ({ className = "w-5 h-5" }) => (
+  React.createElement("svg", {
+    className: className,
+    fill: "none",
+    stroke: "currentColor",
+    viewBox: "0 0 24 24"
+  }, React.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeWidth: 2,
+    d: "M9 5l7 7-7 7"
+  }))
+);
+
+const ArrowLeft = ({ className = "w-4 h-4" }) => (
+  React.createElement("svg", {
+    className: className,
+    fill: "none",
+    stroke: "currentColor",
+    viewBox: "0 0 24 24"
+  }, React.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeWidth: 2,
+    d: "M10 19l-7-7m0 0l7-7m-7 7h18"
+  }))
+);
+
+const User = ({ className = "w-6 h-6 text-blue-600" }) => (
+  React.createElement("svg", {
+    className: className,
+    fill: "none",
+    stroke: "currentColor",
+    viewBox: "0 0 24 24"
+  }, React.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeWidth: 2,
+    d: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+  }))
+);
+
+const Brain = ({ className = "w-5 h-5" }) => (
+  React.createElement("svg", {
+    className: className,
+    fill: "none",
+    stroke: "currentColor",
+    viewBox: "0 0 24 24"
+  }, React.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeWidth: 2,
+    d: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+  }))
+);
+
+const Heart = ({ className = "w-5 h-5" }) => (
+  React.createElement("svg", {
+    className: className,
+    fill: "none",
+    stroke: "currentColor",
+    viewBox: "0 0 24 24"
+  }, React.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeWidth: 2,
+    d: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+  }))
+);
+
+const MessageCircle = ({ className = "w-5 h-5" }) => (
+  React.createElement("svg", {
+    className: className,
+    fill: "none",
+    stroke: "currentColor",
+    viewBox: "0 0 24 24"
+  }, React.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeWidth: 2,
+    d: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+  }))
+);
+
+const Utensils = ({ className = "w-5 h-5" }) => (
+  React.createElement("svg", {
+    className: className,
+    fill: "none",
+    stroke: "currentColor",
+    viewBox: "0 0 24 24"
+  }, React.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeWidth: 2,
+    d: "M3 5v14l7-7 7 7V5"
+  }))
+);
+
+const Stethoscope = ({ className = "w-5 h-5 text-green-600" }) => (
+  React.createElement("svg", {
+    className: className,
+    fill: "none",
+    stroke: "currentColor",
+    viewBox: "0 0 24 24"
+  }, React.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeWidth: 2,
+    d: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h14a2 2 0 002-2V7a2 2 0 00-2-2h-5m-4 0V3a2 2 0 114 0v2m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
+  }))
+);
+
+const Lightbulb = ({ className = "w-5 h-5 text-orange-600" }) => (
+  React.createElement("svg", {
+    className: className,
+    fill: "none",
+    stroke: "currentColor",
+    viewBox: "0 0 24 24"
+  }, React.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeWidth: 2,
+    d: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+  }))
+);
+
+const FileText = ({ className = "w-5 h-5 text-blue-600" }) => (
+  React.createElement("svg", {
+    className: className,
+    fill: "none",
+    stroke: "currentColor",
+    viewBox: "0 0 24 24"
+  }, React.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeWidth: 2,
+    d: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+  }))
+);
 
 const SpeechPathologyDiagnosticTree = () => {
   const [currentStep, setCurrentStep] = useState('start');
   const [selectedPath, setSelectedPath] = useState({});
   const [recommendations, setRecommendations] = useState(null);
   const [showInterventions, setShowInterventions] = useState(false);
-  const [shareModalOpen, setShareModalOpen] = useState(false);
-  const [copySuccess, setCopySuccess] = useState(false);
-
-  // Generate shareable URL with current state
-  const generateShareableURL = () => {
-    const currentURL = window.location.href.split('?')[0];
-    const state = {
-      step: currentStep,
-      path: selectedPath,
-      interventions: showInterventions
-    };
-    const encodedState = btoa(JSON.stringify(state));
-    return `${currentURL}?state=${encodedState}`;
-  };
-
-  // Load state from URL on component mount
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const stateParam = urlParams.get('state');
-    
-    if (stateParam) {
-      try {
-        const decodedState = JSON.parse(atob(stateParam));
-        setCurrentStep(decodedState.step || 'start');
-        setSelectedPath(decodedState.path || {});
-        setShowInterventions(decodedState.interventions || false);
-        
-        // If we have a complete path, show recommendations
-        if (decodedState.interventions && decodedState.path) {
-          const lastOption = Object.values(decodedState.path).pop();
-          if (interventionDatabase[lastOption]) {
-            setRecommendations(interventionDatabase[lastOption]);
-          }
-        }
-      } catch (error) {
-        console.error('Error loading shared state:', error);
-      }
-    }
-  }, []);
-
-  // Update URL when state changes
-  useEffect(() => {
-    if (currentStep !== 'start' || Object.keys(selectedPath).length > 0) {
-      const newURL = generateShareableURL();
-      window.history.replaceState({}, '', newURL);
-    }
-  }, [currentStep, selectedPath, showInterventions]);
-
-  const copyToClipboard = async (text) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopySuccess(true);
-      setTimeout(() => setCopySuccess(false), 2000);
-    } catch (err) {
-      // Fallback for older browsers
-      const textArea = document.createElement('textarea');
-      textArea.value = text;
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
-      setCopySuccess(true);
-      setTimeout(() => setCopySuccess(false), 2000);
-    }
-  };
-
-  const shareViaEmail = () => {
-    const url = generateShareableURL();
-    const subject = 'Speech Pathology Diagnostic Decision Tree';
-    const body = `I'm sharing this evidence-based speech pathology diagnostic tool with you:\n\n${url}\n\nThis interactive decision tree helps navigate patient presentations and provides evidence-based intervention recommendations for Melbourne practice.`;
-    window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  };
-
-  const ShareModal = () => {
-    if (!shareModalOpen) return null;
-
-    const shareURL = generateShareableURL();
-
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold">Share Diagnostic Tool</h3>
-            <button 
-              onClick={() => setShareModalOpen(false)}
-              className="text-gray-400 hover:text-gray-600"
-            >
-              ×
-            </button>
-          </div>
-          
-          <p className="text-gray-600 mb-4">
-            Share this evidence-based speech pathology diagnostic decision tree with colleagues:
-          </p>
-
-          <div className="space-y-3">
-            <div className="flex items-center gap-2 p-3 bg-gray-50 rounded border">
-              <input 
-                type="text" 
-                value={shareURL} 
-                readOnly 
-                className="flex-1 bg-transparent text-sm text-gray-700"
-              />
-              <button
-                onClick={() => copyToClipboard(shareURL)}
-                className="flex items-center gap-1 px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700"
-              >
-                <Copy className="w-3 h-3" />
-                {copySuccess ? 'Copied!' : 'Copy'}
-              </button>
-            </div>
-
-            <div className="flex gap-2">
-              <button
-                onClick={shareViaEmail}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
-              >
-                <Mail className="w-4 h-4" />
-                Email Link
-              </button>
-              
-              {navigator.share && (
-                <button
-                  onClick={() => {
-                    navigator.share({
-                      title: 'Speech Pathology Diagnostic Decision Tree',
-                      text: 'Evidence-based speech pathology diagnostic tool for Melbourne practice',
-                      url: shareURL
-                    });
-                  }}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-                >
-                  <Share2 className="w-4 h-4" />
-                  Share
-                </button>
-              )}
-            </div>
-          </div>
-
-          <div className="mt-4 p-3 bg-blue-50 rounded text-sm">
-            <p className="text-blue-800">
-              <strong>Note:</strong> The shared link will preserve the current assessment path and recommendations, making it easy to discuss specific cases with colleagues.
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   // Evidence-based interventions database from the guide
   const interventionDatabase = {
-    'autism-aac': {
-      title: 'Autism Spectrum Disorder with AAC Needs',
+    'autism-nonverbal': {
+      title: 'Autism Spectrum Disorder - AAC Intervention',
       assessment: 'DSM-5 criteria, behavioral observation, functional communication measures',
       interventions: [
         'Speech-generating devices (most effective)',
@@ -347,12 +338,32 @@ const SpeechPathologyDiagnosticTree = () => {
     start: {
       title: 'Patient Assessment - Primary Presentation',
       description: 'Select the primary area of concern for evidence-based intervention recommendations',
-      icon: <User className="w-6 h-6 text-blue-600" />,
+      icon: React.createElement(User),
       options: [
-        { id: 'neurodivergent', title: 'Neurodivergent Conditions', icon: <Brain className="w-5 h-5" />, description: 'Autism, ADHD, DLD, Intellectual Disabilities' },
-        { id: 'physical', title: 'Physical Conditions', icon: <Heart className="w-5 h-5" />, description: 'Cerebral Palsy, Cleft Palate, Hearing Impairment, ABI' },
-        { id: 'communication', title: 'Communication Disorders', icon: <MessageCircle className="w-5 h-5" />, description: 'Speech sounds, Language, Voice, Fluency' },
-        { id: 'swallowing', title: 'Swallowing/Feeding', icon: <Utensils className="w-5 h-5" />, description: 'Dysphagia, Feeding disorders' }
+        { 
+          id: 'neurodivergent', 
+          title: 'Neurodivergent Conditions', 
+          icon: React.createElement(Brain), 
+          description: 'Autism, ADHD, DLD, Intellectual Disabilities' 
+        },
+        { 
+          id: 'physical', 
+          title: 'Physical Conditions', 
+          icon: React.createElement(Heart), 
+          description: 'Cerebral Palsy, Cleft Palate, Hearing Impairment, ABI' 
+        },
+        { 
+          id: 'communication', 
+          title: 'Communication Disorders', 
+          icon: React.createElement(MessageCircle), 
+          description: 'Speech sounds, Language, Voice, Fluency' 
+        },
+        { 
+          id: 'swallowing', 
+          title: 'Swallowing/Feeding', 
+          icon: React.createElement(Utensils), 
+          description: 'Dysphagia, Feeding disorders' 
+        }
       ]
     },
     neurodivergent: {
@@ -468,170 +479,318 @@ const SpeechPathologyDiagnosticTree = () => {
   const currentStepData = decisionSteps[currentStep];
 
   if (showInterventions && recommendations) {
-    return (
-      <div className="max-w-4xl mx-auto p-6 bg-white">
-        <div className="mb-6">
-          <button 
-            onClick={goBack}
-            className="flex items-center gap-2 text-blue-600 hover:text-blue-800 mb-4"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Assessment
-          </button>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Evidence-Based Intervention Recommendations</h1>
-          <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
-            <h2 className="text-xl font-semibold text-blue-900">{recommendations.title}</h2>
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-6">
-            <div className="bg-gray-50 rounded-lg p-6">
-              <div className="flex items-center gap-2 mb-3">
-                <Stethoscope className="w-5 h-5 text-green-600" />
-                <h3 className="text-lg font-semibold">Assessment Protocol</h3>
-              </div>
-              <p className="text-gray-700">{recommendations.assessment}</p>
-            </div>
-
-            <div className="bg-gray-50 rounded-lg p-6">
-              <div className="flex items-center gap-2 mb-3">
-                <Lightbulb className="w-5 h-5 text-orange-600" />
-                <h3 className="text-lg font-semibold">Evidence Base</h3>
-              </div>
-              <p className="text-gray-700">{recommendations.evidence}</p>
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <div className="bg-gray-50 rounded-lg p-6">
-              <div className="flex items-center gap-2 mb-3">
-                <FileText className="w-5 h-5 text-blue-600" />
-                <h3 className="text-lg font-semibold">Evidence-Based Interventions</h3>
-              </div>
-              <ul className="space-y-2">
-                {recommendations.interventions.map((intervention, index) => (
-                  <li key={index} className="flex items-start gap-2">
-                    <ChevronRight className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">{intervention}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="bg-gray-50 rounded-lg p-6">
-              <div className="flex items-center gap-2 mb-3">
-                <ExternalLink className="w-5 h-5 text-purple-600" />
-                <h3 className="text-lg font-semibold">Funding Options (Melbourne)</h3>
-              </div>
-              <p className="text-gray-700">{recommendations.funding}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-6 bg-yellow-50 border-l-4 border-yellow-500 p-4">
-          <h3 className="font-semibold text-yellow-900 mb-2">Clinical Considerations</h3>
-          <p className="text-yellow-800">{recommendations.considerations}</p>
-        </div>
-
-        <div className="mt-8 flex gap-4">
-          <button 
-            onClick={resetTree}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            New Assessment
-          </button>
-          <button 
-            onClick={() => window.print()}
-            className="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors"
-          >
-            Print Recommendations
-          </button>
-        </div>
-      </div>
-    );
+    return React.createElement('div', {
+      className: "max-w-4xl mx-auto p-6 bg-white"
+    }, [
+      React.createElement('div', {
+        key: "header",
+        className: "mb-6"
+      }, [
+        React.createElement('button', {
+          key: "back-btn",
+          onClick: goBack,
+          className: "flex items-center gap-2 text-blue-600 hover:text-blue-800 mb-4"
+        }, [
+          React.createElement(ArrowLeft, { key: "arrow" }),
+          "Back to Assessment"
+        ]),
+        React.createElement('h1', {
+          key: "title",
+          className: "text-2xl font-bold text-gray-900 mb-2"
+        }, "Evidence-Based Intervention Recommendations"),
+        React.createElement('div', {
+          key: "title-box",
+          className: "bg-blue-50 border-l-4 border-blue-500 p-4 mb-6"
+        }, React.createElement('h2', {
+          className: "text-xl font-semibold text-blue-900"
+        }, recommendations.title))
+      ]),
+      
+      React.createElement('div', {
+        key: "content",
+        className: "grid md:grid-cols-2 gap-6"
+      }, [
+        React.createElement('div', {
+          key: "left-col",
+          className: "space-y-6"
+        }, [
+          React.createElement('div', {
+            key: "assessment",
+            className: "bg-gray-50 rounded-lg p-6"
+          }, [
+            React.createElement('div', {
+              key: "assess-header",
+              className: "flex items-center gap-2 mb-3"
+            }, [
+              React.createElement(Stethoscope, { key: "stetho" }),
+              React.createElement('h3', {
+                key: "assess-title",
+                className: "text-lg font-semibold"
+              }, "Assessment Protocol")
+            ]),
+            React.createElement('p', {
+              key: "assess-text",
+              className: "text-gray-700"
+            }, recommendations.assessment)
+          ]),
+          
+          React.createElement('div', {
+            key: "evidence",
+            className: "bg-gray-50 rounded-lg p-6"
+          }, [
+            React.createElement('div', {
+              key: "evidence-header",
+              className: "flex items-center gap-2 mb-3"
+            }, [
+              React.createElement(Lightbulb, { key: "bulb" }),
+              React.createElement('h3', {
+                key: "evidence-title",
+                className: "text-lg font-semibold"
+              }, "Evidence Base")
+            ]),
+            React.createElement('p', {
+              key: "evidence-text",
+              className: "text-gray-700"
+            }, recommendations.evidence)
+          ])
+        ]),
+        
+        React.createElement('div', {
+          key: "right-col",
+          className: "space-y-6"
+        }, [
+          React.createElement('div', {
+            key: "interventions",
+            className: "bg-gray-50 rounded-lg p-6"
+          }, [
+            React.createElement('div', {
+              key: "int-header",
+              className: "flex items-center gap-2 mb-3"
+            }, [
+              React.createElement(FileText, { key: "file" }),
+              React.createElement('h3', {
+                key: "int-title",
+                className: "text-lg font-semibold"
+              }, "Evidence-Based Interventions")
+            ]),
+            React.createElement('ul', {
+              key: "int-list",
+              className: "space-y-2"
+            }, recommendations.interventions.map((intervention, index) =>
+              React.createElement('li', {
+                key: index,
+                className: "flex items-start gap-2"
+              }, [
+                React.createElement(ChevronRight, {
+                  key: "chevron",
+                  className: "w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0"
+                }),
+                React.createElement('span', {
+                  key: "text",
+                  className: "text-gray-700"
+                }, intervention)
+              ])
+            ))
+          ]),
+          
+          React.createElement('div', {
+            key: "funding",
+            className: "bg-gray-50 rounded-lg p-6"
+          }, [
+            React.createElement('div', {
+              key: "fund-header",
+              className: "flex items-center gap-2 mb-3"
+            }, [
+              React.createElement('svg', {
+                key: "external",
+                className: "w-5 h-5 text-purple-600",
+                fill: "none",
+                stroke: "currentColor",
+                viewBox: "0 0 24 24"
+              }, React.createElement('path', {
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                strokeWidth: 2,
+                d: "M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              })),
+              React.createElement('h3', {
+                key: "fund-title",
+                className: "text-lg font-semibold"
+              }, "Funding Options (Melbourne)")
+            ]),
+            React.createElement('p', {
+              key: "fund-text",
+              className: "text-gray-700"
+            }, recommendations.funding)
+          ])
+        ])
+      ]),
+      
+      React.createElement('div', {
+        key: "considerations",
+        className: "mt-6 bg-yellow-50 border-l-4 border-yellow-500 p-4"
+      }, [
+        React.createElement('h3', {
+          key: "cons-title",
+          className: "font-semibold text-yellow-900 mb-2"
+        }, "Clinical Considerations"),
+        React.createElement('p', {
+          key: "cons-text",
+          className: "text-yellow-800"
+        }, recommendations.considerations)
+      ]),
+      
+      React.createElement('div', {
+        key: "buttons",
+        className: "mt-8 flex gap-4"
+      }, [
+        React.createElement('button', {
+          key: "new-assess",
+          onClick: resetTree,
+          className: "bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+        }, "New Assessment"),
+        React.createElement('button', {
+          key: "print",
+          onClick: () => window.print(),
+          className: "bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors"
+        }, "Print Recommendations")
+      ])
+    ]);
   }
 
-  return (
-    <div className="max-w-4xl mx-auto p-6 bg-white">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">
-          Speech Pathology Evidence-Based Diagnostic Decision Tree
-        </h1>
-        <p className="text-gray-600 text-lg">
-          Navigate through patient presentations to receive targeted, evidence-based intervention recommendations for Melbourne practice.
-        </p>
-      </div>
+  return React.createElement('div', {
+    className: "max-w-4xl mx-auto p-6 bg-white"
+  }, [
+    React.createElement('div', {
+      key: "main-header",
+      className: "mb-8"
+    }, [
+      React.createElement('h1', {
+        key: "main-title",
+        className: "text-3xl font-bold text-gray-900 mb-4"
+      }, "Speech Pathology Evidence-Based Diagnostic Decision Tree"),
+      React.createElement('p', {
+        key: "main-desc",
+        className: "text-gray-600 text-lg"
+      }, "Navigate through patient presentations to receive targeted, evidence-based intervention recommendations for Melbourne practice.")
+    ]),
 
-      {/* Breadcrumb */}
-      {Object.keys(selectedPath).length > 0 && (
-        <div className="mb-6 flex items-center gap-2 text-sm text-gray-600">
-          <span>Assessment Path:</span>
-          {Object.entries(selectedPath).map(([step, option], index) => (
-            <span key={step} className="flex items-center gap-1">
-              <ChevronRight className="w-3 h-3" />
-              <span className="bg-blue-100 px-2 py-1 rounded">{option}</span>
-            </span>
-          ))}
-        </div>
-      )}
+    // Breadcrumb
+    Object.keys(selectedPath).length > 0 && React.createElement('div', {
+      key: "breadcrumb",
+      className: "mb-6 flex items-center gap-2 text-sm text-gray-600"
+    }, [
+      React.createElement('span', { key: "path-label" }, "Assessment Path:"),
+      ...Object.entries(selectedPath).map(([step, option], index) =>
+        React.createElement('span', {
+          key: step,
+          className: "flex items-center gap-1"
+        }, [
+          React.createElement(ChevronRight, {
+            key: "breadcrumb-chevron",
+            className: "w-3 h-3"
+          }),
+          React.createElement('span', {
+            key: "breadcrumb-option",
+            className: "bg-blue-100 px-2 py-1 rounded"
+          }, option)
+        ])
+      )
+    ]),
 
-      {/* Back button */}
-      {currentStep !== 'start' && (
-        <button 
-          onClick={goBack}
-          className="flex items-center gap-2 text-blue-600 hover:text-blue-800 mb-6"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back
-        </button>
-      )}
+    // Back button
+    currentStep !== 'start' && React.createElement('button', {
+      key: "back-button",
+      onClick: goBack,
+      className: "flex items-center gap-2 text-blue-600 hover:text-blue-800 mb-6"
+    }, [
+      React.createElement(ArrowLeft, { key: "back-arrow" }),
+      "Back"
+    ]),
 
-      {/* Current step */}
-      {currentStepData && (
-        <div className="bg-white border rounded-lg shadow-sm">
-          <div className="p-6 border-b">
-            <div className="flex items-center gap-3 mb-3">
-              {currentStepData.icon}
-              <h2 className="text-2xl font-semibold text-gray-900">{currentStepData.title}</h2>
-            </div>
-            <p className="text-gray-600">{currentStepData.description}</p>
-          </div>
+    // Current step
+    currentStepData && React.createElement('div', {
+      key: "current-step",
+      className: "bg-white border rounded-lg shadow-sm"
+    }, [
+      React.createElement('div', {
+        key: "step-header",
+        className: "p-6 border-b"
+      }, [
+        React.createElement('div', {
+          key: "step-title-row",
+          className: "flex items-center gap-3 mb-3"
+        }, [
+          currentStepData.icon,
+          React.createElement('h2', {
+            key: "step-title",
+            className: "text-2xl font-semibold text-gray-900"
+          }, currentStepData.title)
+        ]),
+        React.createElement('p', {
+          key: "step-desc",
+          className: "text-gray-600"
+        }, currentStepData.description)
+      ]),
 
-          <div className="p-6 grid gap-4">
-            {currentStepData.options.map((option) => (
-              <button
-                key={option.id}
-                onClick={() => handleOptionSelect(currentStep, option.id)}
-                className="flex items-center gap-4 p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-all text-left group"
-              >
-                <div className="flex-shrink-0">
-                  {option.icon ? (
-                    <div className="p-2 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
-                      {option.icon}
-                    </div>
-                  ) : (
-                    <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
-                  )}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-gray-900 mb-1">{option.title}</h3>
-                  <p className="text-sm text-gray-600">{option.description}</p>
-                </div>
-                <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors" />
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+      React.createElement('div', {
+        key: "step-options",
+        className: "p-6 grid gap-4"
+      }, currentStepData.options.map((option) =>
+        React.createElement('button', {
+          key: option.id,
+          onClick: () => handleOptionSelect(currentStep, option.id),
+          className: "flex items-center gap-4 p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-all text-left group"
+        }, [
+          React.createElement('div', {
+            key: "option-icon",
+            className: "flex-shrink-0"
+          }, option.icon ? 
+            React.createElement('div', {
+              key: "icon-wrapper",
+              className: "p-2 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors"
+            }, option.icon) :
+            React.createElement('div', {
+              key: "dot",
+              className: "w-3 h-3 bg-blue-600 rounded-full"
+            })
+          ),
+          React.createElement('div', {
+            key: "option-content",
+            className: "flex-1 min-w-0"
+          }, [
+            React.createElement('h3', {
+              key: "option-title",
+              className: "font-semibold text-gray-900 mb-1"
+            }, option.title),
+            React.createElement('p', {
+              key: "option-desc",
+              className: "text-sm text-gray-600"
+            }, option.description)
+          ]),
+          React.createElement(ChevronRight, {
+            key: "option-chevron",
+            className: "w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors"
+          })
+        ])
+      ))
+    ]),
 
-      {/* Footer */}
-      <div className="mt-8 text-center text-sm text-gray-500">
-        <p>Based on Speech Pathology Australia Professional Standards 2020 and Melbourne healthcare context</p>
-        <p className="mt-1">Evidence-based interventions sourced from current research and Australian clinical guidelines</p>
-      </div>
-    </div>
-  );
+    // Footer
+    React.createElement('div', {
+      key: "footer",
+      className: "mt-8 text-center text-sm text-gray-500"
+    }, [
+      React.createElement('p', {
+        key: "footer-1"
+      }, "Based on Speech Pathology Australia Professional Standards 2020 and Melbourne healthcare context"),
+      React.createElement('p', {
+        key: "footer-2",
+        className: "mt-1"
+      }, "Evidence-based interventions sourced from current research and Australian clinical guidelines")
+    ])
+  ]);
 };
 
-export default SpeechPathologyDiagnosticTree;
+// Render the app
+ReactDOM.render(React.createElement(SpeechPathologyDiagnosticTree), document.getElementById('root'));
