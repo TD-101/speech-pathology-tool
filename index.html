@@ -3,14 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Speech Pathology Evidence-Based Diagnostic Decision Tree</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50">
-    <div id="app" class="max-w-4xl mx-auto p-6 bg-white min-h-screen">
-        <!-- Content will be inserted here -->
-    </div>
+    <title>Speech Pathology Evidence-Based Diagnostic Decision Tree - Melbourne, Australia</title>
+    <meta name="description" content="Interactive evidence-based diagnostic decision tree for speech pathology practice in Melbourne, Australia. Navigate patient presentations to receive targeted intervention recommendations.">
+    <meta name="keywords" content="speech pathology, evidence-based practice, Melbourne, Australia, diagnostic tool, intervention recommendations">
     
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom styles for enhanced appearance -->
+    <style>
+        /* Custom animations and transitions */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(10px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        .card-hover {
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Enhanced button styles */
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        /* Responsive grid improvements */
+        @media (max-width: 768px) {
+            .grid-responsive {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            body { 
+                font-size: 12pt; 
+                color: black !important;
+            }
+            .bg-blue-50, .bg-gray-50, .bg-yellow-50 { 
+                background: #f8f9fa !important; 
+                -webkit-print-color-adjust: exact;
+            }
+            .shadow-sm, .shadow-md { 
+                box-shadow: none !important; 
+            }
+            button { 
+                display: none !important; 
+            }
+            .grid { 
+                display: block !important; 
+            }
+            .space-y-6 > * + * { 
+                margin-top: 1rem !important; 
+            }
+            .no-print {
+                display: none !important;
+            }
+            .border {
+                border: 1px solid #ccc !important;
+            }
+        }
+        
+        /* Focus styles for accessibility */
+        button:focus {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+        }
+        
+        /* Loading state */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        
+        /* Enhanced visual hierarchy */
+        .text-hierarchy-1 { font-size: 2rem; font-weight: 800; }
+        .text-hierarchy-2 { font-size: 1.5rem; font-weight: 700; }
+        .text-hierarchy-3 { font-size: 1.25rem; font-weight: 600; }
+        
+        /* Custom scrollbar for webkit browsers */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Main Application Container -->
+    <div id="app" class="max-w-4xl mx-auto p-6 bg-white min-h-screen shadow-lg">
+        <!-- Loading message while JavaScript loads -->
+        <div id="loading-message" class="text-center py-12">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p class="text-gray-600">Loading Speech Pathology Diagnostic Decision Tree...</p>
+        </div>
+    </div>
+
+    <!-- Footer with additional information -->
+    <footer class="bg-gray-800 text-white py-6 mt-8 no-print">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-6 text-sm">
+                <div>
+                    <h3 class="font-semibold mb-2">Evidence-Based Practice</h3>
+                    <p class="text-gray-300">Based on Speech Pathology Australia Professional Standards 2020 and current research evidence.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">Melbourne Context</h3>
+                    <p class="text-gray-300">Tailored for Melbourne's diverse healthcare context with specific funding pathways and cultural considerations.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">Professional Use</h3>
+                    <p class="text-gray-300">Designed for qualified speech pathologists and healthcare professionals in clinical practice.</p>
+                </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-gray-700 text-center text-gray-400 text-xs">
+                <p>© 2025 Speech Pathology Evidence-Based Practice Guide. For professional use only.</p>
+                <p class="mt-1">Always consult current clinical guidelines and professional standards for patient care decisions.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application -->
     <script src="app.js"></script>
+    
+    <!-- Remove loading message once app loads -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadingMessage = document.getElementById('loading-message');
+            if (loadingMessage) {
+                loadingMessage.style.display = 'none';
+            }
+        });
+        
+        // Error handling
+        window.addEventListener('error', function(e) {
+            console.error('Application error:', e.error);
+            const app = document.getElementById('app');
+            if (app) {
+                app.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="text-red-600 text-6xl mb-4">⚠️</div>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">Application Error</h2>
+                        <p class="text-gray-600 mb-4">There was an error loading the diagnostic decision tree.</p>
+                        <button onclick="window.location.reload()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                            Reload Page
+                        </button>
+                    </div>
+                `;
+            }
+        });
+    </script>
 </body>
 </html>
